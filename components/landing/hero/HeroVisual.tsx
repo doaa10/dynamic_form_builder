@@ -22,7 +22,7 @@ export function HeroVisual() {
           {mounted &&
             (theme === "light" ? (
               <Image
-                src="/Images/herobg-light.jpg"
+                src="/images/herobg-light.jpg"
                 alt="FormCraft Builder Interface"
                 width={800}
                 height={600}
@@ -31,7 +31,7 @@ export function HeroVisual() {
               />
             ) : (
               <Image
-                src="/Images/heroBg.jpg"
+                src="/images/heroBg.jpg"
                 alt="FormCraft Builder Interface"
                 width={800}
                 height={600}
