@@ -17,7 +17,7 @@ export default function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur-md">
       <Container>
         <div className="flex h-16 items-center justify-between">
           <div>
@@ -31,7 +31,7 @@ export default function Navbar() {
                 />
               ) : (
                 <Image
-                  src="/images/lgo-dark.png"
+                  src="/images/logo2-dark.png"
                   alt="Logo"
                   width={110}
                   height={20}
