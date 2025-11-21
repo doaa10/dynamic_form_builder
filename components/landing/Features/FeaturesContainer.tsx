@@ -1,9 +1,6 @@
 "use client";
 
 import React from "react";
-import { Button } from "@/components/ui/button";
-import { MousePointer2, Code2, Sparkles, ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { features, pills } from "./FeaturesData";
 import FeatureCard from "./FeatureCard";
 import Pills from "./Pills";
