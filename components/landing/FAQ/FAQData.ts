@@ -1,5 +1,3 @@
-import { ChevronDown } from "lucide-react";
-
 export interface FAQItem {
   id: number;
   question: string;

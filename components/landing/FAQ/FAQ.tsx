@@ -26,8 +26,8 @@ export default function FAQ() {
           </h2>
 
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto">
-            Everything you need to know about Dynamic Form Builder. Can't find
-            what you're looking for? Feel free to reach out!
+            Everything you need to know about Dynamic Form Builder. Can&apos;t find
+            what you&apos;re looking for? Feel free to reach out!
           </p>
         </div>
 
@@ -42,7 +42,7 @@ export default function FAQ() {
           <div className="inline-flex flex-col items-center gap-3 p-8 rounded-2xl border border-border/50 bg-card/30 backdrop-blur-sm">
             <h3 className="text-xl font-semibold">Still have questions?</h3>
             <p className="text-muted-foreground">
-              Can't find the answer you're looking for? Open an issue on GitHub.
+              Can&apos;t find the answer you&apos;re looking for? Open an issue on GitHub.
             </p>
             <a
               href="https://github.com/doaa10/dynamic_form_builder/issues"
