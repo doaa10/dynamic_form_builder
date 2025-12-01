@@ -22,7 +22,6 @@ export default function Toolbar({
 }: ToolbarProps) {
   return (
     <div className="h-14 border-b border-border bg-card px-4 flex items-center justify-between">
-      {/* Left Side - Form Name */}
       <div className="flex items-center gap-3">
         <input
           type="text"
@@ -33,7 +32,6 @@ export default function Toolbar({
         />
       </div>
 
-      {/* Right Side - Action Buttons */}
       <div className="flex items-center gap-2">
         <button
           onClick={onSave}
