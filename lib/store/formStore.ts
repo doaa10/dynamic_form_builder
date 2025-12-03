@@ -13,57 +13,61 @@ export const useFormStore = create<FormStore>()(
       isDirty: false,
       
       //actions
-    addField:(field: Omit<FormField, 'id'>) =>
+      addField: (field: Omit<FormField, 'id'>) =>
         set((state) => ({
-            fields: [
-                ...state.fields, 
-                { 
-                    ...field, 
-                    id: crypto.randomUUID() // Auto-generate unique ID
-                }
-            ],
-            isDirty: true,
-        })),    
-        
-  updateField:(id:string, updates: Partial<FormField>) =>
-    set((state)=>({
-        fields: state.fields.map((field) =>
-            field.id === id ? { ...field, ...updates } : field
-        ),
-        isDirty: true,
-    }))
-    ,
-    removeField:(id:string) =>
-    set((state) => ({
-        fields: state.fields.filter((field) => field.id !== id),
-        isDirty: true,
-    })),
-    selectField:(id:string | null) =>
-    set(() => ({
-        selectedFieldId: id,
-    })),
-    reorderFields:(fields: FormField[]) =>
-    set(() => ({
-        fields,
-        isDirty: true,
-    })),
-    setFormName:(name:string) =>
-    set(() => ({
-        formName: name,
-        isDirty: true,
-    })),
-    markDirty:() =>
-    set(() => ({
-        isDirty: true,
-    })),
-    reset:() =>
-    set(() => ({
-        fields: [],
-        selectedFieldId: null,
-        formName: "",
-        isDirty: false,
-    })),
+          fields: [
+            ...state.fields,
+            {
+              ...field,
+              id: crypto.randomUUID() // Auto-generate unique ID
+            }
+          ],
+          isDirty: true,
+        })),
 
+      updateField: (id: string, updates: Partial<FormField>) =>
+        set((state) => ({
+          fields: state.fields.map((field) =>
+            field.id === id ? { ...field, ...updates } : field
+          ),
+          isDirty: true,
+        })),
+
+      removeField: (id: string) =>
+        set((state) => ({
+          fields: state.fields.filter((field) => field.id !== id),
+          isDirty: true,
+        })),
+
+      selectField: (id: string | null) =>
+        set(() => ({
+          selectedFieldId: id,
+        })),
+
+      reorderFields: (fields: FormField[]) =>
+        set(() => ({
+          fields,
+          isDirty: true,
+        })),
+
+      setFormName: (name: string) =>
+        set(() => ({
+          formName: name,
+          isDirty: true,
+        })),
+
+      markDirty: () =>
+        set(() => ({
+          isDirty: true,
+        })),
+
+      reset: () =>
+        set(() => ({
+          fields: [],
+          selectedFieldId: null,
+          formName: "",
+          isDirty: false,
+        })),
     //computed
     getFieldById:(id:string) => {
         const { fields } = get();
