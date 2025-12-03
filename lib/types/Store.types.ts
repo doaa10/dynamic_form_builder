@@ -33,7 +33,7 @@ export interface FormStore {
     //computed
     getFieldById: (id: string) => FormField | undefined;
     getRequiredFields: () => FormField[];
-    isVaild: () => boolean;
+    isValid: () => boolean;
 
 
 
