@@ -73,7 +73,7 @@ export const useFormStore = create<FormStore>()(
         const { fields } = get();
         return fields.filter((field) => field.required);
     },
-    isVaild:() => {
+    isValid:() => {
         const { fields } = get();
         return fields.every((field) => {
             if (field.required) {
