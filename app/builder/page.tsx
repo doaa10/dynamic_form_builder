@@ -52,7 +52,6 @@ export default function BuilderPage() {
         required: false,
       });
 
-      console.log("Field added!");
     }
   };
 
