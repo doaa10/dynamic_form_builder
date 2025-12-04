@@ -60,7 +60,7 @@ const FieldItem = ({ field, isSelected }: FieldItemProps) => {
     >
       <div className="flex items-start gap-3">
         {/* Drag Handle */}
-        <GripVertical className="w-4 h-4 text-muted-foreground/50 group-hover:text-muted-foreground cursor-grab mt-1" />
+        <GripVertical aria-hidden="true" className="w-4 h-4 text-muted-foreground/50 group-hover:text-muted-foreground cursor-grab mt-1" />
 
         {/* Field Icon */}
         <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
