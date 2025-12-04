@@ -7,11 +7,11 @@ import { DndContext, DragEndEvent, useDroppable } from "@dnd-kit/core";
 import { useFormStore } from "@/lib/store/formStore";
 import Canvas from "@/components/builder/Canvas/Canvas";
 import { FormField } from "@/lib/types/Store.types";
+import { fieldTypes } from "@/lib/types/fieldTypes";
 
 // Type guard to validate field type
 const isValidFieldType = (type: string): type is FormField['type'] => {
-  const validTypes: FormField['type'][] = ['text', 'number', 'email', 'date', 'textarea', 'select', 'radio', 'checkbox', 'phone', 'url'];
-  return validTypes.includes(type as FormField['type']);
+  return fieldTypes.some(ft => ft.value === type);
 };
 
 export default function BuilderPage() {
@@ -54,7 +54,7 @@ export default function BuilderPage() {
       const fieldType = fieldData?.type;
       
       // Validate and use the field type, fallback to 'text' if invalid
-      const validatedType = fieldType && isValidFieldType(fieldType) ? fieldType : 'text';
+      const validatedType = isValidFieldType(fieldType) ? fieldType : 'text';
       
       addField({
         type: validatedType,
