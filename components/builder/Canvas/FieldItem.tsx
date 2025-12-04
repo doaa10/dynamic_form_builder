@@ -98,6 +98,7 @@ const FieldItem = ({ field, isSelected }: FieldItemProps) => {
         <Button
           variant="ghost"
           size="icon"
+          aria-label={`Delete ${field.label} field`}
           onClick={(e) => {
             e.stopPropagation();
             removeField(field.id);
