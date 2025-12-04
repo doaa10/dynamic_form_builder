@@ -10,7 +10,7 @@ import Canvas from "@/components/builder/Canvas/Canvas";
 export default function BuilderPage() {
   const [formName, setFormName] = useState("Untitled Form");
   const addField = useFormStore((state) => state.addField);
-  const clearAllField = useFormStore((state) => state.reset);
+  const clearAllFields = useFormStore((state) => state.reset);
   const handleSave = () => {
     console.log("Save form:", formName);
   };
@@ -36,7 +36,7 @@ export default function BuilderPage() {
   };
 
   const handleClear = () => {
-    clearAllField();
+    clearAllFields();
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
