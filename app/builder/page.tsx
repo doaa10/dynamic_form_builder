@@ -4,16 +4,31 @@ import React, { useState } from "react";
 import Toolbar from "@/components/builder/Toolbar/Toolbar";
 import Sidebar from "@/components/builder/Sidebar/Sidebar";
 import { DndContext, DragEndEvent, useDroppable } from "@dnd-kit/core";
+import { useFormStore } from "@/lib/store/formStore";
+import Canvas from "@/components/builder/Canvas/Canvas";
 
 export default function BuilderPage() {
   const [formName, setFormName] = useState("Untitled Form");
-
+  const addField = useFormStore((state) => state.addField);
+  const clearAllField = useFormStore((state) => state.reset);
   const handleSave = () => {
     console.log("Save form:", formName);
   };
 
   const handleExport = () => {
-    console.log("Export JSON");
+    const fields = useFormStore.getState().fields;
+    const formData = { formName, fields };
+
+    // Create JSON file
+    const json = JSON.stringify(formData, null, 2);
+    const blob = new Blob([json], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+
+    // Download file
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${formName}.json`;
+    a.click();
   };
 
   const handlePreview = () => {
@@ -21,17 +36,22 @@ export default function BuilderPage() {
   };
 
   const handleClear = () => {
-    console.log("Clear all");
+    clearAllField();
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
     if (over && over.id === "canvas-drop-zone") {
-      console.log("✅ Dropped field:", active.data.current);
-      alert(
-        `Dragged: ${active.data.current?.label}\nType: ${active.data.current?.type}`
-      );
+      const fieldData = active.data.current;
+      addField({
+        type: fieldData?.type || "text",
+        label: fieldData?.label || "New Field",
+        placeholder: `Enter ${fieldData?.label}`,
+        required: false,
+      });
+
+      console.log("Field added!");
     }
   };
 
@@ -52,7 +72,7 @@ export default function BuilderPage() {
             <Sidebar />
           </div>
 
-          <TestDropZone />
+          <Canvas />
 
           <div className="bg-card p-4 flex flex-col overflow-y-auto">
             <h3 className="font-semibold mb-4">Preview Placeholder</h3>
