@@ -27,7 +27,8 @@ export default function BuilderPage() {
     // Download file
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${formName}.json`;
+    const sanitizedName = formName.replace(/[/\\:*?"<>|]/g, "_");
+    a.download = `${sanitizedName}.json`;
     a.click();
   };
 
