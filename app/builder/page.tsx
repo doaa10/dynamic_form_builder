@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState } from "react";
 import Toolbar from "@/components/builder/Toolbar/Toolbar";
 import Sidebar from "@/components/builder/Sidebar/Sidebar";
-import { DndContext, DragEndEvent, useDroppable } from "@dnd-kit/core";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { useFormStore } from "@/lib/store/formStore";
 import Canvas from "@/components/builder/Canvas/Canvas";
 import { FormField } from "@/lib/types/Store.types";
@@ -80,17 +79,17 @@ export default function BuilderPage() {
           onClear={handleClear}
         />
 
-        <div className="flex-1 grid grid-cols-[300px_1fr_400px] gap-0 overflow-hidden">
+        <div className="flex-1 grid grid-cols-[300px_1fr_320px_400px] gap-0 overflow-hidden">
           <div className="border-r border-border bg-card p-4 flex flex-col min-h-0">
             <Sidebar />
           </div>
 
-          <div className="border-r border-border bg-background flex gap-4 overflow-hidden">
-            <div className="flex-1 overflow-y-auto">
-              <Canvas />
-            </div>
-            <FieldPropertiesPanel />
+          <div className="border-r border-border bg-background overflow-y-auto">
+            <Canvas />
           </div>
+
+          <FieldPropertiesPanel />
+
           <div className="bg-card p-4 flex flex-col overflow-y-auto">
             <Preview />
           </div>

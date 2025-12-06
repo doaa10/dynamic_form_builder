@@ -9,7 +9,7 @@ export const useFormStore = create<FormStore>()(
       // Initial state
       fields: [],
       selectedFieldId: null,
-      formName: "Untitled Form",
+      formName: "",
       isDirty: false,
       
       //actions

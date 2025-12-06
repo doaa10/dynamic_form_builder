@@ -13,7 +13,7 @@ const FieldPropertiesPanel = () => {
 
   if (!field) {
     return (
-      <div className="w-80 border-l border-border bg-card p-6 flex items-center justify-center">
+      <div className="border-r border-border bg-card p-6 flex items-center justify-center h-full">
         <div className="text-center text-muted-foreground">
           <p className="text-sm">Select a field to edit its properties</p>
         </div>
@@ -22,9 +22,8 @@ const FieldPropertiesPanel = () => {
   }
 
   return (
-    <div className="w-80 border-l border-border bg-card p-4 overflow-y-auto">
+    <div className="border-r border-border bg-card p-4 overflow-y-auto">
       <div className="space-y-6">
-       
         <div>
           <h3 className="font-semibold text-lg mb-2">Field Properties</h3>
           <p className="text-xs text-muted-foreground">
@@ -46,7 +45,7 @@ const FieldPropertiesPanel = () => {
           <Input
             id="field-label"
             value={field.label}
-            onChange={(e) => updateField(field.id,{label: e.target.value})}
+            onChange={(e) => updateField(field.id, { label: e.target.value })}
             placeholder="Enter field label"
           />
         </div>

@@ -15,7 +15,7 @@ const Canvas = () => {
   return (
     <div
       ref={setNodeRef}
-      className={`flex-1 p-6 overflow-y-auto transition-colors ${
+      className={`p-6 overflow-y-auto transition-colors min-h-full ${
         isOver
           ? "bg-primary/5 border-2 border-primary border-dashed"
           : "bg-background"
