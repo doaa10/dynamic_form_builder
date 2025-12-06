@@ -40,5 +40,3 @@ jobs:
       # Step 5: Show deployment URL
       - name: Show Deployment URL
         run: echo "Deployed successfully! Check your Vercel dashboard."
-        - name: Deploy to Vercel
-          run: npx vercel --prod --token=${{ secrets.VERCEL_TOKEN }} --debug
