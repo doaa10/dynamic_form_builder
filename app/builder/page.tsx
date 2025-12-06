@@ -1,21 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
 import Toolbar from "@/components/builder/Toolbar/Toolbar";
 import Sidebar from "@/components/builder/Sidebar/Sidebar";
-import { DndContext, DragEndEvent, useDroppable } from "@dnd-kit/core";
+import { DndContext, DragEndEvent } from "@dnd-kit/core";
 import { useFormStore } from "@/lib/store/formStore";
 import Canvas from "@/components/builder/Canvas/Canvas";
 import { FormField } from "@/lib/types/Store.types";
 import { fieldTypes } from "@/lib/types/fieldTypes";
+import FieldPropertiesPanel from "@/components/builder/properties/FieldPropertiesPanel";
+import Preview from "@/components/builder/Preview/Preview";
 
 // Type guard to validate field type
-const isValidFieldType = (type: string): type is FormField['type'] => {
-  return fieldTypes.some(ft => ft.value === type);
+const isValidFieldType = (type: string): type is FormField["type"] => {
+  return fieldTypes.some((ft) => ft.value === type);
 };
-
 export default function BuilderPage() {
-  const [formName, setFormName] = useState("Untitled Form");
+  const formName = useFormStore((state) => state.formName);
+  const setFormName = useFormStore((state) => state.setFormName);
   const addField = useFormStore((state) => state.addField);
   const clearAllFields = useFormStore((state) => state.reset);
   const handleSave = () => {
@@ -53,17 +54,16 @@ export default function BuilderPage() {
     if (over && over.id === "canvas-drop-zone") {
       const fieldData = active.data.current;
       const fieldType = fieldData?.type;
-      
+
       // Validate and use the field type, fallback to 'text' if invalid
-      const validatedType = isValidFieldType(fieldType) ? fieldType : 'text';
-      
+      const validatedType = isValidFieldType(fieldType) ? fieldType : "text";
+
       addField({
         type: validatedType,
         label: fieldData?.label || "New Field",
         placeholder: `Enter ${fieldData?.label}`,
         required: false,
       });
-
     }
   };
 
@@ -79,47 +79,22 @@ export default function BuilderPage() {
           onClear={handleClear}
         />
 
-        <div className="flex-1 grid grid-cols-[300px_1fr_400px] gap-0 overflow-hidden">
+        <div className="flex-1 grid grid-cols-[300px_1fr_320px_400px] gap-0 overflow-hidden">
           <div className="border-r border-border bg-card p-4 flex flex-col min-h-0">
             <Sidebar />
           </div>
 
-          <Canvas />
+          <div className="border-r border-border bg-background overflow-y-auto">
+            <Canvas />
+          </div>
+
+          <FieldPropertiesPanel />
 
           <div className="bg-card p-4 flex flex-col overflow-y-auto">
-            <h3 className="font-semibold mb-4">Preview Placeholder</h3>
-            <p className="text-sm text-muted-foreground">
-              Live preview will go here
-            </p>
+            <Preview />
           </div>
         </div>
       </div>
     </DndContext>
-  );
-}
-
-// Test Drop Zone Component
-function TestDropZone() {
-  const { setNodeRef, isOver } = useDroppable({
-    id: "canvas-drop-zone",
-  });
-
-  return (
-    <div
-      ref={setNodeRef}
-      className={`border-r border-border bg-background p-4 flex flex-col overflow-y-auto transition-colors ${
-        isOver ? "bg-primary/10 border-primary" : ""
-      }`}
-    >
-      <div className="flex-1 flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-6xl mb-4">👇</div>
-          <h3 className="font-semibold mb-2">Test Drop Zone</h3>
-          <p className="text-sm text-muted-foreground">
-            {isOver ? "Release to drop!" : "Drag a field from sidebar here"}
-          </p>
-        </div>
-      </div>
-    </div>
   );
 }
