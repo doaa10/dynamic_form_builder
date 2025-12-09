@@ -9,15 +9,18 @@ import { FormField } from "@/lib/types/Store.types";
 import { fieldTypes } from "@/lib/types/fieldTypes";
 import FieldPropertiesPanel from "@/components/builder/properties/FieldPropertiesPanel";
 import Preview from "@/components/builder/Preview/Preview";
+import { arrayMove } from "@dnd-kit/sortable";
 
 // Type guard to validate field type
 const isValidFieldType = (type: string): type is FormField["type"] => {
   return fieldTypes.some((ft) => ft.value === type);
 };
 export default function BuilderPage() {
+  const Fields = useFormStore((state) => state.fields);
   const formName = useFormStore((state) => state.formName);
   const setFormName = useFormStore((state) => state.setFormName);
   const addField = useFormStore((state) => state.addField);
+  const reorderFields = useFormStore((state) => state.reorderFields);
   const clearAllFields = useFormStore((state) => state.reset);
   const handleSave = () => {
     console.log("Save form:", formName);
@@ -51,7 +54,22 @@ export default function BuilderPage() {
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
 
-    if (over && over.id === "canvas-drop-zone") {
+    if (!over) return;
+
+    // Case 1: Reordering existing fields within canvas
+    if (active.id !== over.id && Fields.find((f) => f.id === active.id)) {
+      const oldIndex = Fields.findIndex((f) => f.id === active.id);
+      const newIndex = Fields.findIndex((f) => f.id === over.id);
+
+      if (oldIndex !== -1 && newIndex !== -1) {
+        const reorderedFields = arrayMove(Fields, oldIndex, newIndex);
+        reorderFields(reorderedFields);
+      }
+      return;
+    }
+
+    // Case 2: Adding new field from sidebar to canvas
+    if (over.id === "canvas-drop-zone") {
       const fieldData = active.data.current;
       const fieldType = fieldData?.type;
 

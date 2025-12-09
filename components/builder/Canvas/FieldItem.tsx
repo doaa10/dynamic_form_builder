@@ -3,6 +3,8 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useFormStore } from "@/lib/store/formStore";
 import { FormField } from "@/lib/types/Store.types";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import {
   Trash2,
   GripVertical,
@@ -23,7 +25,7 @@ interface FieldItemProps {
   isSelected?: boolean;
 }
 
-// Icon mapping 
+// Icon mapping
 const getFieldIcon = (type: string) => {
   const icons: Record<string, React.ComponentType<{ className?: string }>> = {
     text: Type,
@@ -45,9 +47,26 @@ const getFieldIcon = (type: string) => {
 const FieldItem = ({ field, isSelected }: FieldItemProps) => {
   const selectField = useFormStore((state) => state.selectField);
   const removeField = useFormStore((state) => state.removeField);
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: field.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
 
   return (
     <Card
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
       onClick={() => selectField(field.id)}
       className={`
         p-4 cursor-pointer transition-all duration-200 group
@@ -60,7 +79,12 @@ const FieldItem = ({ field, isSelected }: FieldItemProps) => {
     >
       <div className="flex items-start gap-3">
         {/* Drag Handle */}
-        <GripVertical aria-hidden="true" className="w-4 h-4 text-muted-foreground/50 group-hover:text-muted-foreground cursor-grab mt-1" />
+        <div {...listeners} className="cursor-grab active:cursor-grabbing">
+          <GripVertical
+            aria-hidden="true"
+            className="w-4 h-4 text-muted-foreground/50 group-hover:text-muted-foreground mt-1"
+          />
+        </div>
 
         {/* Field Icon */}
         <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
